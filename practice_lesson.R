@@ -91,19 +91,52 @@ ggplot(data = gapminder, aes( x=year, y=lifeExp, by=country )) +
 #TIP
 #change color of all lines to blue
 ggplot(data = gapminder, aes( x=year, y=lifeExp, by=country )) +
-  geom_line(color="blue") + geom_point()
+  geom_line(color="purple") + geom_point()
 
 ##easy CHALLENGE 3
 #switch order of point and line layers from previous example.
-#what happens
+#what happens?
 ggplot(data = gapminder, aes( x=year, y=lifeExp, by=country )) +
  geom_point() +  geom_line(aes(color=continent))
 
 #TRANSFORMATION AND STATISTICS
 #overlay statistical models over data
 #color by continent
-ggplot(data = gapminder, aes(x = gdpPercap, y = lifeExp, color=continent)) + 
-  geom_point()
+ggplot(data = gapminder, aes(x = gdpPercap, y = lifeExp, 
+                             color=continent)) + geom_point()
 
+#use scale function (change x axis), 
+#using alpha function (transparency)
+ggplot(data = gapminder, aes(x = gdpPercap, y = lifeExp,
+                             color = continent)) + 
+  geom_point(alpha = 0.5) + scale_x_log10()
 
+#geom_smooth, adding another layer here
+ggplot(data = gapminder, aes(x = gdpPercap, y = lifeExp,
+                             color = continent)) + 
+  geom_point(alpha = 0.5) + scale_x_log10() + 
+  geom_smooth(method ="lm")
 
+#make line thicker
+ggplot(data = gapminder, aes(x = gdpPercap, y = lifeExp,
+                             color = continent)) + 
+  geom_point(alpha = 0.5) + 
+  scale_x_log10() + 
+  geom_smooth(method ="lm", size=1.5)
+
+#Challenge
+#modify color and size of points on the point layer
+#in the previous example
+#hint do not use the aes function
+ggplot(data = gapminder, aes(x = gdpPercap, y = lifeExp,
+                             color = continent)) + 
+  geom_point(alpha = 0.5, size=3, shape = 2) + 
+  scale_x_log10() + 
+  geom_smooth(method ="lm", size=1.5)
+
+#try with a non-factor, color = countries_as_character
+ggplot(data = gapminder2, aes(x = gdpPercap, y = lifeExp,
+                             color = year)) + 
+  geom_point(alpha = 0.5, size=3, shape = 2) + 
+  scale_x_log10() + 
+  geom_smooth(method ="lm", size=1.5)
